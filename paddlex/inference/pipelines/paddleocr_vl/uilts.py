@@ -18,7 +18,7 @@ import math
 import re
 from collections import Counter
 from copy import deepcopy
-from typing import Any, Dict, List, Tuple
+from typing import Any, Dict, List, Tuple, Union
 
 import numpy as np
 from PIL import Image
@@ -829,7 +829,7 @@ def convert_otsl_to_html(otsl_content: str):
     return export_to_html(table_data)
 
 
-def find_shortest_repeating_substring(s: str) -> str | None:
+def find_shortest_repeating_substring(s: str) -> Union[str, None]:
     """
     Find the shortest substring that repeats to form the entire string.
 
@@ -850,7 +850,7 @@ def find_shortest_repeating_substring(s: str) -> str | None:
 
 def find_repeating_suffix(
     s: str, min_len: int = 8, min_repeats: int = 5
-) -> Tuple[str, str, int] | None:
+) -> Union[Tuple[str, str, int], None]:
     """
     Detect if string ends with a repeating phrase.
 
@@ -888,7 +888,7 @@ def truncate_repetitive_content(
         min_len (int): Min length for char-level check.
 
     Returns:
-        Tuple[str, str]: (truncated_content, info_string)
+        Union[str, str]: (truncated_content, info_string)
     """
     stripped_content = content.strip()
     if not stripped_content:
@@ -923,3 +923,35 @@ def truncate_repetitive_content(
         return most_common_line
 
     return content
+
+
+def crop_margin(img):
+    import cv2
+
+    if len(img.shape) == 3:
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    else:
+        gray = img.copy()
+
+    if gray.dtype != np.uint8:
+        gray = gray.astype(np.uint8)
+
+    max_val = gray.max()
+    min_val = gray.min()
+
+    if max_val == min_val:
+        return img
+
+    data = (gray - min_val) / (max_val - min_val) * 255
+    data = data.astype(np.uint8)
+
+    _, binary = cv2.threshold(data, 200, 255, cv2.THRESH_BINARY_INV)
+    coords = cv2.findNonZero(binary)
+
+    if coords is None:
+        return img
+
+    x, y, w, h = cv2.boundingRect(coords)
+    cropped = img[y : y + h, x : x + w]
+
+    return cropped

@@ -56,5 +56,6 @@ MKLDNN_BLOCKLIST = [
     "PP-FormulaNet_plus-L",
     "PP-FormulaNet_plus-M",
     "PP-FormulaNet_plus-S",
+    "PP-DocLayoutV2",
     "SVTRNet",
 ]
