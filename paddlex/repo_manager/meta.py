@@ -56,9 +56,10 @@ REPO_META = {
         "path_env": "PADDLE_PDX_PADDLECLAS_PATH",
     },
     "PaddleDetection": {
-        "git_path": "/PaddlePaddle/PaddleDetection.git",
+        # "git_path": "/PaddlePaddle/PaddleDetection.git",
+        "git_path": "/phat-ktran/PaddleDetection.git",
         "platform": "github",
-        "branch": "develop",
+        "branch": "release/2.9",
         "install_pkg": True,
         "dist_name": "paddledet",
         "import_name": "ppdet",
