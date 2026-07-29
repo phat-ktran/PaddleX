@@ -1,8 +1,8 @@
 Global:
   model: PP-LCNet_x1_0_doc_ori
-  mode: check_dataset # check_dataset/train/evaluate/predict
-  dataset_dir: "/paddle/dataset/paddlex/cls/text_image_orientation"
-  device: gpu:0,1,2,3
+  mode: train # check_dataset/train/evaluate/predict
+  dataset_dir: "/media/phatalways_sleeping/1TB-SSD/NFVN-Chunks/Training"
+  device: gpu:0
   output: "output"
 
 CheckDataset:
@@ -17,8 +17,8 @@ CheckDataset:
 Train:
   num_classes: 4
   epochs_iters: 50
-  batch_size: 16
-  learning_rate: 0.08
+  batch_size: 4
+  learning_rate: 0.02
   pretrain_weight_path: https://paddle-model-ecology.bj.bcebos.com/paddlex/official_pretrained_model/PP-LCNet_x1_0_doc_ori_pretrained.pdparams
   warmup_steps: 100
   resume_path: null

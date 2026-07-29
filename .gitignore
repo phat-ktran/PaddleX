@@ -7,6 +7,7 @@ paddlex/repo_manager/repos/*
 .pdopt
 distributed_train_logs
 
+output
 # IDE 
 .vscode
 
